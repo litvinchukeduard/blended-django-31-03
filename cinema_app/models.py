@@ -21,7 +21,7 @@ class Movie(models.Model):
     duration = models.PositiveIntegerField()
     release_date = models.DateField()
     cinemas = models.ManyToManyField(Cinema)
-    poster = models.ImageField(upload_to='media/movie_posters', default='/media/movie_posters/poster.jpg')
+    poster = models.ImageField(upload_to='', default='/media/movie_posters/poster.jpg')
 
     def __str__(self):
         return self.title

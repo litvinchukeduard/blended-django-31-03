@@ -21,26 +21,33 @@
         {% endfor %}
     </ul>
 
-    <h2>Movies</h2>
+    {% if movies %}
     <ul>
         {% for movie in movies %}
-            <li>{{ movie.title }} - Directed by: {{ movie.director }} - Duration: {{ movie.duration }} minutes - Release Date: {{ movie.release_date }}</li>
-            <p>{{ movie.description }}</p>
-            <img src="{{ movie.poster.url }}" alt="{{ movie.title }} Poster">
-            <p>Showing at:
-            {% for cinema in movie.cinemas.all %}
-                {{ cinema.name }},
-            {% endfor %}
-            </p>
+            <li>{{ movie.title }}</li> <!-- Adjust this to display whatever movie fields you want -->
         {% endfor %}
     </ul>
 
-    <h2>Screenings</h2>
-    <ul>
-        {% for screening in screenings %}
-            <li>{{ screening.movie.title }} at {{ screening.cinema.name }} - Start Time: {{ screening.start_time }} - End Time: {{ screening.end_time }}</li>
-        {% endfor %}
-    </ul>
+    <div class="pagination">
+        <span class="step-links">
+            {% if movies.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ movies.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ movies.number }} of {{ movies.paginator.num_pages }}.
+            </span>
+
+            {% if movies.has_next %}
+                <a href="?page={{ movies.next_page_number }}">next</a>
+                <a href="?page={{ movies.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+{% else %}
+    <p>No movies available</p>
+{% endif %}
 </main>
 </body>
 </html>

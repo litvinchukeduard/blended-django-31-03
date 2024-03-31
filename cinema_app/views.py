@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 
 from .forms import CinemaForm, MovieForm, ScreeningForm
@@ -6,12 +7,18 @@ from .models import Cinema, Movie, Screening
 
 # Create your views here.
 def main(request):
-    cinemas = Cinema.objects.all()
+    page_number = request.GET.get('page', 1)
+
+    cinemas = Cinema.objects.all().order_by('id')
     movies = Movie.objects.all()
     screenings = Screening.objects.all()
+
+    paginator = Paginator(list(movies), 2)
+    movies_page = paginator.page(page_number)
+
     return render(request, 'cinema_app/index.html', {
         'cinemas': cinemas,
-        'movies': movies,
+        'movies': movies_page,
         'screenings': screenings
     })
 
