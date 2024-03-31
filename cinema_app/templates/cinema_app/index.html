@@ -11,7 +11,12 @@
     <a href="{% url 'cinema_app:cinema' %}" role="button">Add a Cinema</a>
     <a href="{% url 'cinema_app:movie' %}" role="button">Add a Movie</a>
     <a href="{% url 'cinema_app:screening' %}" role="button">Add a Screening</a>
-
+    {% if user.is_authenticated %}
+        <a href="{% url 'users:logout' %}" role="button">Log out</a>
+    {% else %}
+        <a href="{% url 'users:register' %}" role="button">Register user</a>
+        <a href="{% url 'users:login' %}" role="button">Log in</a>
+    {% endif %}
     <h1>All Information</h1>
 
     <h2>Cinemas</h2>
