@@ -19,20 +19,20 @@ class Movie(models.Model):
     director = models.CharField(max_length=100)
     description = models.CharField(max_length=255)
     duration = models.PositiveIntegerField()
-    release_date = models.DateField(auto_now=True)
+    release_date = models.DateField()
     cinemas = models.ManyToManyField(Cinema)
     poster = models.ImageField(upload_to='media/movie_posters', default='poster.jpg')
 
     def __str__(self):
-        return f'Title: {self.title}, director: {self.director}'
+        return self.title
     
 
 # Screening (start_time (DateTi­meField), end_time (DateTi­meField))
 class Screening(models.Model):
     cinema = models.ForeignKey(Cinema, on_delete=models.CASCADE)
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
-    start_time = models.DateTimeField(auto_now=True)
-    end_time = models.DateTimeField(auto_now=True)
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField()
 
     def __str__(self):
-        return f'Starting at {self.start_time}, ending at {self.end_time}'
+        return f'{self.movie.title} starting at {self.start_time}, ending at {self.end_time}'
