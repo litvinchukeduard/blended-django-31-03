@@ -4,6 +4,7 @@
 
 - Set up db preferences in `cinema/settings.py`
 - `python manage.py migrate`
+- `python3 manage.py createsuperuser`
 - `python manage.py runserver`
 
 ## Models
