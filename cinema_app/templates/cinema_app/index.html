@@ -11,6 +11,36 @@
     <a href="{% url 'cinema_app:cinema' %}" role="button">Add a Cinema</a>
     <a href="{% url 'cinema_app:movie' %}" role="button">Add a Movie</a>
     <a href="{% url 'cinema_app:screening' %}" role="button">Add a Screening</a>
+
+    <h1>All Information</h1>
+
+    <h2>Cinemas</h2>
+    <ul>
+        {% for cinema in cinemas %}
+            <li>{{ cinema.name }} - {{ cinema.location }} - Capacity: {{ cinema.capacity }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Movies</h2>
+    <ul>
+        {% for movie in movies %}
+            <li>{{ movie.title }} - Directed by: {{ movie.director }} - Duration: {{ movie.duration }} minutes - Release Date: {{ movie.release_date }}</li>
+            <p>{{ movie.description }}</p>
+            <img src="{{ movie.poster.url }}" alt="{{ movie.title }} Poster">
+            <p>Showing at:
+            {% for cinema in movie.cinemas.all %}
+                {{ cinema.name }},
+            {% endfor %}
+            </p>
+        {% endfor %}
+    </ul>
+
+    <h2>Screenings</h2>
+    <ul>
+        {% for screening in screenings %}
+            <li>{{ screening.movie.title }} at {{ screening.cinema.name }} - Start Time: {{ screening.start_time }} - End Time: {{ screening.end_time }}</li>
+        {% endfor %}
+    </ul>
 </main>
 </body>
 </html>
